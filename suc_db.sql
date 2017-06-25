@@ -243,8 +243,8 @@ CREATE TABLE IF NOT EXISTS `DinerFood` (
   PRIMARY KEY (`idDinerFood`),
   foreign key (idDiner)    references diner    (idDiner),
   foreign key (idFoodType) references FoodType (idFoodType),  
-  INDEX `idFoocdType_idx` (`idFoodType` ASC),
-  INDEX `idDiner_idx` (`idDiner` ASC))
+  INDEX `idFoodType_idx` (`idFoodType` ASC),
+  INDEX `idDiner_idx`    (`idDiner` ASC))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -263,6 +263,29 @@ CREATE TABLE IF NOT EXISTS `DinerRequest` (
   `endDate` 		DATE 		NOT NULL,
   PRIMARY KEY (`idDinerRequest`),
   foreign key (idDiner) references diner (idDiner),
+  INDEX `idDiner_idx` (`idDiner` ASC))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `DinerInput`
+-- -----------------------------------------------------
+-- drop table DinerInput;
+
+CREATE TABLE IF NOT EXISTS `DinerInput` (
+  `idDinerInput`   INT NOT NULL auto_increment,
+  `idDiner` 	   CHAR(50) NOT NULL,
+  `idInputType`    INT NULL,
+  `name` 		   VARCHAR(50) NULL,
+  `size`           VARCHAR(50) NULL,
+  `genderType` 	   CHAR,
+  `quantity` 	   INT,
+  `description`    LONGTEXT NULL,
+  PRIMARY KEY (`idDinerInput`),
+  foreign key (idDiner)    references diner    (idDiner),
+  foreign key (idInputType) references InputType (idInputType),  
+  INDEX `idInputType_idx` (`idInputType` ASC),
   INDEX `idDiner_idx` (`idDiner` ASC))
 ENGINE = InnoDB;
 
