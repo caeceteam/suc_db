@@ -17,32 +17,32 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 -- Table `Province`
 -- -----------------------------------------------------
--- drop table province;
+ drop table province;
 
-CREATE TABLE IF NOT EXISTS `Province` (
-    `idProvince` INT NOT NULL AUTO_INCREMENT,
-    `country` 	 VARCHAR(20) NULL DEFAULT 'Argentina',
-    `name` 		 VARCHAR(20) NULL,
-    PRIMARY KEY (`idProvince`))  
-ENGINE=INNODB;
+-- CREATE TABLE IF NOT EXISTS `Province` (
+--     `idProvince` INT NOT NULL AUTO_INCREMENT,
+--     `country` 	 VARCHAR(20) NULL DEFAULT 'Argentina',
+--    `name` 		 VARCHAR(20) NULL,
+--     PRIMARY KEY (`idProvince`))  
+-- ENGINE=INNODB;
 
-SHOW WARNINGS;
+-- SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `City`
 -- -----------------------------------------------------
--- drop table city;
+drop table city;
 
-CREATE TABLE IF NOT EXISTS `City` (
-    `idCity` 	 INT NOT NULL AUTO_INCREMENT,
-    `idProvince` INT NULL,
-    `name` 		 VARCHAR(50) NULL,
-    PRIMARY KEY (`idCity`),
-    FOREIGN KEY (idProvince) REFERENCES province (idProvince),
-    INDEX `idProvince_idx` (`idProvince` ASC))  
-ENGINE=INNODB;
+-- CREATE TABLE IF NOT EXISTS `City` (
+--    `idCity` 	 INT NOT NULL AUTO_INCREMENT,
+--    `idProvince` INT NULL,
+--    `name` 		 VARCHAR(50) NULL,
+--    PRIMARY KEY (`idCity`),
+--   FOREIGN KEY (idProvince) REFERENCES province (idProvince),
+--    INDEX `idProvince_idx` (`idProvince` ASC))  
+-- ENGINE=INNODB;
 
-SHOW WARNINGS;
+-- SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `User`
@@ -64,10 +64,10 @@ CREATE TABLE IF NOT EXISTS `User` (
   `streetNumber` INT NULL,
   `floor` 	 	 VARCHAR(10) NULL,
   `door` 	 	 VARCHAR(20) NULL,
-  `idCity` 	 	 INT NULL,
-  PRIMARY KEY (`idUser`),
-  foreign key (idCity) references city (idCity),  
-  INDEX `idCity_idx` (`idCity` ASC))
+-- `idCity` 	 	 INT NULL,
+  PRIMARY KEY (`idUser`))
+--  foreign key (idCity) references city (idCity),  
+--  INDEX `idCity_idx` (`idCity` ASC))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -99,6 +99,7 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `Diner` (
   `idDiner` 		CHAR(50) NOT NULL,
   `name` 			VARCHAR(80) NULL,
+  `state` 		  	INT NULL,
   `street` 			VARCHAR(50) NULL,
   `streetNumber` 	INT NULL,
   `floor` 			VARCHAR(10) NULL,
@@ -110,10 +111,11 @@ CREATE TABLE IF NOT EXISTS `Diner` (
   `description` 	LONGTEXT NULL,
   `link` 			VARCHAR(100) NULL,
   `mail` 			VARCHAR(50) NULL,
-  `idCity` 			INT NULL,
-  PRIMARY KEY (`idDiner`),
-  foreign key (idCity) references city (idCity), 
-  INDEX `idCity_idx` (`idCity` ASC))
+--  `idCity` 			INT NULL,
+  PRIMARY KEY (`idDiner`))
+ -- foreign key (idCity) references 
+ -- (idCity), 
+--  INDEX `idCity_idx` (`idCity` ASC))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -171,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `Assistant` (
   `floor` 		  	  VARCHAR(10) NULL,
   `door` 		  	  VARCHAR(20) NULL,
   `zipCode` 	  	  CHAR(5) NULL,
-  `idCity` 		  	  INT NOT NULL,
+--  `idCity` 		  	  INT NOT NULL,
   `state` 		  	  INT NULL,
   `phone` 		  	  VARCHAR(20) NULL,
   `contactName`   	  VARCHAR(50) NULL,
@@ -181,9 +183,9 @@ CREATE TABLE IF NOT EXISTS `Assistant` (
   `celiac` 			  bool NULL default false,
   `diabetic` 		  bool NULL default false,
   `document` 		  VARCHAR(13) NULL,
-  PRIMARY KEY (`idAssistant`),
-  foreign key (idCity) references city (idCity),
-  INDEX `idCity_idx` (`idCity` ASC))
+  PRIMARY KEY (`idAssistant`))
+--  foreign key (idCity) references city (idCity),
+--  INDEX `idCity_idx` (`idCity` ASC))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -233,16 +235,16 @@ CREATE TABLE IF NOT EXISTS `Event` (
   `floor` 		 varchar(10) NULL,
   `door` 		 varchar(20) NULL,
   `zipCode` 	 CHAR(5) NULL,
-  `idCity` 		 INT NULL,
+--  `idCity` 		 INT NULL,
   `phone` 		 varchar(20) NULL,
   `date` 		 DATE NOT NULL,
   `link` 		 varchar(100) NULL,
   `description`  LONGTEXT  NOT NULL,
   `idDiner` 	 CHAR(50)  NOT NULL,
   PRIMARY KEY (`idEvent`),
-  foreign key (idDiner) references diner (idDiner),
-  foreign key (idCity)  references city  (idCity),
-  INDEX `idDiner_idx` (`idDiner` ASC))
+  foreign key (idDiner) references diner (idDiner))
+--  foreign key (idCity)  references city  (idCity),
+--  INDEX `idDiner_idx` (`idDiner` ASC))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -371,6 +373,21 @@ CREATE TABLE IF NOT EXISTS `EventPhoto` (
     FOREIGN KEY (idPhoto) REFERENCES photo (idPhoto),
     INDEX `idPhoto_idx` (`idPhoto` ASC)
 )  ENGINE=INNODB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `InputType`
+-- -----------------------------------------------------
+-- drop table InputType;
+
+CREATE TABLE IF NOT EXISTS `InputType` (
+  `idInputType`  INT NOT NULL auto_increment,
+  `code` 	     CHAR(10) NULL,
+  `name`  	     VARCHAR(50) NULL,
+  `description`  LONGTEXT NULL,
+  PRIMARY KEY (`idInputType`))
+ENGINE = InnoDB;
 
 SHOW WARNINGS;
 
