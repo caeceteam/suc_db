@@ -20,22 +20,23 @@ SHOW WARNINGS;
 -- drop table user; 
 
 CREATE TABLE IF NOT EXISTS `User` (
-  `idUser` 	 	 CHAR(50)    NOT NULL,
-  `name` 	 	 VARCHAR(50) NOT NULL,
-  `surname`  	 VARCHAR(50) NOT NULL,
-  `mail` 	 	 VARCHAR(50) NULL,
-  `phone` 	 	 VARCHAR(20) NULL,
-  `state` 	 	 INT NULL,
-  `bornDate` 	 DATE NULL,
-  `role` 	 	 INT NULL,
-  `pass` 	 	 VARCHAR(64) NULL,
-  `docNum` 	 	 VARCHAR(13) NULL,
-  `street` 	 	 VARCHAR(50) NULL,
-  `streetNumber` INT NULL,
-  `floor` 	 	 VARCHAR(10) NULL,
-  `door` 	 	 VARCHAR(20) NULL,
-  PRIMARY KEY (`idUser`))
-ENGINE = InnoDB;
+    `idUser` 		CHAR(50) 	NOT NULL,
+    `name` 			VARCHAR(50) NOT NULL,
+    `surname` 		VARCHAR(50) NOT NULL,
+    `mail` 			VARCHAR(50) NOT NULL,
+    `phone` 		VARCHAR(20) NULL,
+--  `state` 		INT 		NULL,
+    `bornDate` 		DATE 		NULL,
+    `role` 			INT 		NOT NULL,
+    `pass` 			VARCHAR(64) NOT NULL,
+    `alias` 		VARCHAR(20) NOT NULL,
+    `docNum` 		VARCHAR(13) NULL,
+    `street` 		VARCHAR(50) NULL,
+    `streetNumber`  INT 		NULL,
+    `floor` 		VARCHAR(10) NULL,
+    `door` 			VARCHAR(20) NULL,
+    PRIMARY KEY (`idUser`)
+)  ENGINE=INNODB;
 
 SHOW WARNINGS;
 
@@ -45,12 +46,12 @@ SHOW WARNINGS;
 -- drop table notification;
 
 CREATE TABLE IF NOT EXISTS `Notification` (
-  `idNotification` 	 	CHAR(50) NOT NULL,
-  `notificationType` 	INT NULL,
-  `notificationStatus`  INT NULL,
-  `title` 			    VARCHAR(50) NULL,
-  `description` 		LONGTEXT NULL,
-  `idUser` 			    CHAR(50) NULL,
+  `idNotification` 	 	CHAR(50) 	NOT NULL,
+  `notificationType` 	INT 	 	NOT NULL,
+  `notificationStatus`  INT 	 	NOT NULL,
+  `title` 			    VARCHAR(50) NOT NULL,
+  `description` 		LONGTEXT 	NULL,
+  `idUser` 			    CHAR(50) 	NOT NULL,
   PRIMARY KEY (`idNotification`),
   foreign key (idUser) references user (idUser),
   INDEX `idUser_idx` (`idUser` ASC))
@@ -64,20 +65,20 @@ SHOW WARNINGS;
 -- Drop table diner;
 
 CREATE TABLE IF NOT EXISTS `Diner` (
-  `idDiner` 		CHAR(50) NOT NULL,
-  `name` 			VARCHAR(80) NULL,
-  `state` 		  	INT NULL,
-  `street` 			VARCHAR(50) NULL,
-  `streetNumber` 	INT NULL,
-  `floor` 			VARCHAR(10) NULL,
-  `door` 			VARCHAR(20) NULL,
-  `latitude` 		FLOAT NULL,
-  `longitude` 		FLOAT NULL,
-  `zipCode` 		VARCHAR(5) NULL,
-  `phone` 			VARCHAR(20) NULL,
-  `description` 	LONGTEXT NULL,
+  `idDiner` 		CHAR(50) 	 NOT NULL,
+  `name` 			VARCHAR(80)  NOT NULL,
+  `state` 		  	INT 		 NOT NULL,
+  `street` 			VARCHAR(50)  NULL,
+  `streetNumber` 	INT 		 NULL,
+  `floor` 			VARCHAR(10)  NULL,
+  `door` 			VARCHAR(20)  NULL,
+  `latitude` 		FLOAT 	 	 NULL,
+  `longitude` 		FLOAT 		 NULL,
+  `zipCode` 		VARCHAR(5) 	 NULL,
+  `phone` 			VARCHAR(20)  NULL,
+  `description` 	LONGTEXT 	 NULL,
   `link` 			VARCHAR(100) NULL,
-  `mail` 			VARCHAR(50) NULL,
+  `mail` 			VARCHAR(50)  NOT NULL,
   PRIMARY KEY (`idDiner`))
 ENGINE = InnoDB;
 
@@ -89,13 +90,13 @@ SHOW WARNINGS;
 -- drop table donation;
 
 CREATE TABLE IF NOT EXISTS `Donation` (
-  `idDonation` 		INT NOT NULL auto_increment,
-  `idSender` 		CHAR(50) NULL COMMENT 'Colaborador que realiza un donación',
-  `idReciever` 		CHAR(50) NULL,
-  `title` 			CHAR(50) NULL,
+  `idDonation` 		INT 	 NOT NULL auto_increment,
+  `idSender` 		CHAR(50) NOT NULL COMMENT 'Colaborador que realiza un donación',
+  `idReciever` 		CHAR(50) NOT NULL,
+  `title` 			CHAR(50) NOT NULL,
   `description` 	LONGTEXT NULL,
-  `startDate` 		DATE NULL,
-  `endDate` 		DATE NULL,
+  `startDate` 		DATE 	 NULL,
+  `endDate` 		DATE 	 NULL,
   PRIMARY KEY (`idDonation`),
   FOREIGN KEY (idSender) 	REFERENCES User  (idUser),
   FOREIGN KEY (idReciever) 	REFERENCES Diner (idDiner),
@@ -111,12 +112,12 @@ SHOW WARNINGS;
 -- drop table donationitem; 
 
 CREATE TABLE IF NOT EXISTS `DonationItem` (
-  `idDonation` 	int NOT NULL,
-  `item` 		INT NOT NULL,
-  `inputType` 	INT NULL,
-  `foodType` 	INT NULL,
-  `quantity` 	FLOAT NOT NULL,
-  `unit` 		CHAR(5) NOT NULL,
+  `idDonation` 	int 	NOT NULL,
+  `item` 		INT 	NOT NULL,
+  `inputType` 	INT 	NULL,
+  `foodType` 	INT 	NULL,
+  `quantity` 	FLOAT 	NOT NULL,
+  `unit` 		CHAR(5) NULL,
   PRIMARY KEY (`idDonation`, `item`),
   foreign key (idDonation) references Donation (idDonation) )
 ENGINE = InnoDB;
@@ -127,22 +128,21 @@ SHOW WARNINGS;
 -- Table `Assistant`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Assistant` (
-  `idAssistant`   	  CHAR(50) NOT NULL,
-  `name` 		  	  VARCHAR(50) NOT NULL,
-  `surname` 	  	  VARCHAR(50) NOT NULL,
-  `bornDate` 	  	  DATE NOT NULL,
-  `street` 		  	  VARCHAR(50) NULL,
-  `streetNumber`  	  INT NULL,
-  `floor` 		  	  VARCHAR(10) NULL,
-  `door` 		  	  VARCHAR(20) NULL,
-  `zipCode` 	  	  CHAR(5) NULL,
---  `idCity` 		  	  INT NOT NULL,
-  `state` 		  	  INT NULL,
-  `phone` 		  	  VARCHAR(20) NULL,
-  `contactName`   	  VARCHAR(50) NULL,
-  `scholarship`   	  VARCHAR(50) NULL,
-  `eatAtOwnHouse` 	  bool NULL,
-  `economicSituation` VARCHAR(80) NULL,
+  `idAssistant`   	  CHAR(50) 		NOT NULL,
+  `name` 		  	  VARCHAR(50) 	NOT NULL,
+  `surname` 	  	  VARCHAR(50) 	NOT NULL,
+  `bornDate` 	  	  DATE 			NOT NULL,
+  `street` 		  	  VARCHAR(50) 	NULL,
+  `streetNumber`  	  INT 			NULL,
+  `floor` 		  	  VARCHAR(10) 	NULL,
+  `door` 		  	  VARCHAR(20) 	NULL,
+  `zipCode` 	  	  CHAR(5) 		NULL,
+-- `state` 		  	  INT 			NOT NULL,
+  `phone` 		  	  VARCHAR(20) 	NULL,
+  `contactName`   	  VARCHAR(50) 	NULL,
+  `scholarship`   	  VARCHAR(50) 	NULL,
+  `eatAtOwnHouse` 	  bool 			NULL,
+  `economicSituation` VARCHAR(80) 	NULL,
   `celiac` 			  bool NULL default false,
   `diabetic` 		  bool NULL default false,
   `document` 		  VARCHAR(13) NULL,
@@ -157,8 +157,8 @@ SHOW WARNINGS;
 -- drop table family;
 
 CREATE TABLE IF NOT EXISTS `Family` (
-  `idFamily` 	INT NOT NULL auto_increment,
-  `idAssistant` CHAR(50) NOT NULL,
+  `idFamily` 	INT 		 NOT NULL auto_increment,
+  `idAssistant` CHAR(50) 	 NOT NULL,
   `Description` VARCHAR(100) NULL,
   PRIMARY KEY (`idFamily`, `idAssistant`),
   foreign key (idAssistant) references Assistant (idAssistant))
@@ -171,10 +171,10 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 -- drop table Photo;
 
-CREATE TABLE IF NOT EXISTS `Photo` (
-  `idDiner` Char(50) NOT NULL,
-  `idPhoto` INT NOT NULL,
-  `url` 	LONGTEXT NULL,
+CREATE TABLE IF NOT EXISTS `DinerPhoto` (
+  `idDiner` CHAR(50) 	NOT NULL,
+  `idPhoto` INT 		NOT NULL,
+  `url` 	LONGTEXT 	NOT NULL,
   PRIMARY KEY (`idPhoto`, `idDiner`),
   foreign key (idDiner) references diner (idDiner),
   INDEX `idDiner_idx` (`idDiner` ASC))
@@ -188,18 +188,18 @@ SHOW WARNINGS;
 -- drop table Event;
 
 CREATE TABLE IF NOT EXISTS `Event` (
-  `idEvent` 	 char(50) NOT NULL,
-  `name` 		 varchar(50) NOT NULL,
-  `street` 		 varchar(50) NULL,
-  `streetNumber` INT NULL,
-  `floor` 		 varchar(10) NULL,
-  `door` 		 varchar(20) NULL,
-  `zipCode` 	 CHAR(5) NULL,
-  `phone` 		 varchar(20) NULL,
-  `date` 		 DATE NOT NULL,
-  `link` 		 varchar(100) NULL,
-  `description`  LONGTEXT  NOT NULL,
-  `idDiner` 	 CHAR(50)  NOT NULL,
+  `idEvent` 	 char(50) 	  NOT NULL,
+  `name` 		 varchar(50)  NOT NULL,
+  `street` 		 varchar(50)  NULL,
+  `streetNumber` INT 		  NULL,
+  `floor` 		 varchar(10)  NULL,
+  `door` 		 varchar(20)  NULL,
+  `zipCode` 	 CHAR(5) 	  NULL,
+  `phone` 		 varchar(20)  NULL,
+  `date` 		 DATE 		  NOT NULL,
+  `link` 		 longtext     NULL,
+  `description`  LONGTEXT  	  NOT NULL,
+  `idDiner` 	 CHAR(50)  	  NOT NULL,
   PRIMARY KEY (`idEvent`),
   foreign key (idDiner) references diner (idDiner))
 ENGINE = InnoDB;
@@ -212,13 +212,13 @@ SHOW WARNINGS;
 -- drop table FoodType;
 
 CREATE TABLE IF NOT EXISTS `FoodType` (
-  `idFoodType`  INT NOT NULL auto_increment,
-  `code` 	    CHAR(10) NULL,
-  `name`  	    VARCHAR(50) NULL,
-  `description` LONGTEXT NULL,
-  `perishable`  bool NULL default false,
-  `celiac`      bool NULL default false,
-  `diabetic`    bool NULL default false,
+  `idFoodType`  INT 	 	NOT NULL auto_increment,
+  `code` 	    CHAR(10) 	NOT NULL,
+  `name`  	    VARCHAR(50) NOT NULL,
+  `description` LONGTEXT 	NOT NULL,
+  `perishable`  bool 		NOT NULL default false,
+  `celiac`      bool 		NOT NULL default false,
+  `diabetic`    bool 		NOT NULL default false,
   PRIMARY KEY (`idFoodType`))
 ENGINE = InnoDB;
 
@@ -230,16 +230,16 @@ SHOW WARNINGS;
 -- drop table DinerFood;
 
 CREATE TABLE IF NOT EXISTS `DinerFood` (
-  `idDinerFood`    INT NOT NULL auto_increment,
-  `creationDate`   DATE NOT NULL,
-  `idDiner` 	   CHAR(50) NOT NULL,
-  `idFoodType`     INT NULL,
-  `name` 		   VARCHAR(50) NULL,
-  `description`    LONGTEXT NULL,
-  `quantity` 	   FLOAT NULL,
-  `init` 		   CHAR(5) NULL,
-  `endingDate` 	   DATE NULL,
-  `expirationDate` DATE NULL,
+  `idDinerFood`    INT 			NOT NULL auto_increment,
+  `creationDate`   DATE 		NOT NULL,
+  `idDiner` 	   CHAR(50) 	NOT NULL,
+  `idFoodType`     INT 			NOT NULL,
+  `name` 		   VARCHAR(50)	NOT NULL,
+  `description`    LONGTEXT 	NULL,
+  `quantity` 	   FLOAT 		NULL NULL,
+  `unity` 		   CHAR(5) 		NULL NULL,
+  `endingDate` 	   DATE 		NULL,
+  `expirationDate` DATE	 		NULL,
   PRIMARY KEY (`idDinerFood`),
   foreign key (idDiner)    references diner    (idDiner),
   foreign key (idFoodType) references FoodType (idFoodType),  
@@ -274,16 +274,16 @@ SHOW WARNINGS;
 -- drop table DinerInput;
 
 CREATE TABLE IF NOT EXISTS `DinerInput` (
-  `idDinerInput`   INT NOT NULL auto_increment,
-  `idDiner` 	   CHAR(50) NOT NULL,
-  `idInputType`    INT NULL,
-  `name` 		   VARCHAR(50) NULL,
-  `size`           VARCHAR(50) NULL,
-  `genderType` 	   CHAR,
-  `quantity` 	   INT,
-  `description`    LONGTEXT NULL,
+  `idDinerInput`   INT 			NOT NULL auto_increment,
+  `idDiner` 	   CHAR(50) 	NOT NULL,
+  `idInputType`    INT 			NOT NULL,
+  `name` 		   VARCHAR(50)  NULL,
+  `size`           VARCHAR(50) 	NULL,
+  `genderType` 	   CHAR 		NOT NULL,
+  `quantity` 	   INT			NOT NULL,
+  `description`    LONGTEXT 	NULL,
   PRIMARY KEY (`idDinerInput`),
-  foreign key (idDiner)    references diner    (idDiner),
+  foreign key (idDiner)     references diner    (idDiner),
   foreign key (idInputType) references InputType (idInputType),  
   INDEX `idInputType_idx` (`idInputType` ASC),
   INDEX `idDiner_idx` (`idDiner` ASC))
@@ -299,7 +299,7 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `DinerRequestStatus` (
     `idRequest` 	CHAR(50) NOT NULL,
     `idReceiver` 	CHAR(50) NOT NULL,
-    `status`  	 	INT NULL,
+    `status`  	 	INT 	 NOT NULL,
     PRIMARY KEY (`idRequest` , `idReceiver`),
     FOREIGN KEY (idRequest)  REFERENCES DinerRequest (idDinerRequest),
     FOREIGN KEY (idReceiver) REFERENCES user (idUser),
@@ -317,7 +317,7 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `UserDiner` (
     `idDiner` 	CHAR(50) NOT NULL,
     `idUser` 	CHAR(50) NOT NULL,
-    `active` 	BOOL NULL DEFAULT false,
+    `active` 	BOOL 	 NOT NULL DEFAULT false,
     PRIMARY KEY (`idDiner` , `idUser`),
     FOREIGN KEY (idDiner) REFERENCES Diner (idDiner),
     FOREIGN KEY (idUser)  REFERENCES User  (idUser))
@@ -346,8 +346,9 @@ SHOW WARNINGS;
 -- Table `EventPhoto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `EventPhoto` (
-    `idEvent` CHAR(50) NOT NULL,
-    `idPhoto` INT NOT NULL,
+    `idEvent` CHAR(50) 	NOT NULL,
+    `idPhoto` INT 		NOT NULL,
+	`url` 	  LONGTEXT 	NOT NULL,
     PRIMARY KEY (`idEvent` , `idPhoto`),
     FOREIGN KEY (idEvent) REFERENCES `event` (idEvent),
     FOREIGN KEY (idPhoto) REFERENCES photo (idPhoto),
@@ -362,10 +363,10 @@ SHOW WARNINGS;
 -- drop table InputType;
 
 CREATE TABLE IF NOT EXISTS `InputType` (
-  `idInputType`  INT NOT NULL auto_increment,
-  `code` 	     CHAR(10) NULL,
-  `name`  	     VARCHAR(50) NULL,
-  `description`  LONGTEXT NULL,
+  `idInputType`  INT 			NOT NULL auto_increment,
+  `code` 	     CHAR(10) 		NULL,
+  `name`  	     VARCHAR(50) 	NULL,
+  `description`  LONGTEXT 		NULL,
   PRIMARY KEY (`idInputType`))
 ENGINE = InnoDB;
 
