@@ -174,7 +174,7 @@ SHOW WARNINGS;
 
 CREATE TABLE IF NOT EXISTS `DinerPhoto` (
   `idDiner` BIGINT(32) 	NOT NULL,
-  `idPhoto` BIGINT(32) 		NOT NULL,
+  `idPhoto` BIGINT(32) 		NOT NULL AUTO_INCREMENT,
   `url` 	LONGTEXT 	NOT NULL,
   PRIMARY KEY (`idPhoto`, `idDiner`),
   foreign key (idDiner) references diner (idDiner),
