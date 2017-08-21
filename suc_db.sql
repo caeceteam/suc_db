@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `User` (
 
 SHOW WARNINGS;
 
+
 -- -----------------------------------------------------
 -- Table `Notification`
 -- -----------------------------------------------------
@@ -54,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `Notification` (
   `description` 		LONGTEXT 	NULL,
   `idUser` 			    BIGINT(32) 	NOT NULL,
   PRIMARY KEY (`idNotification`),
-  foreign key (idUser) references user (idUser),
+  foreign key (idUser) references user(idUser),
   INDEX `idUser_idx` (`idUser` ASC))
 ENGINE = InnoDB;
 
@@ -86,11 +87,73 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
+-- Table `Assistant`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Assistant` (
+  `idAssistant`   	  BIGINT(32) 	NOT NULL AUTO_INCREMENT,
+  `name` 		  	  VARCHAR(50) 	NOT NULL,
+  `surname` 	  	  VARCHAR(50) 	NOT NULL,
+  `bornDate` 	  	  DATE 			NOT NULL,
+  `street` 		  	  VARCHAR(50) 	NULL,
+  `streetNumber`  	  INT 			NULL,
+  `floor` 		  	  VARCHAR(10) 	NULL,
+  `door` 		  	  VARCHAR(20) 	NULL,
+  `zipCode` 	  	  CHAR(5) 		NULL,
+-- `state` 		  	  INT 			NOT NULL,
+  `phone` 		  	  VARCHAR(20) 	NULL,
+  `contactName`   	  VARCHAR(50) 	NULL,
+  `scholarship`   	  VARCHAR(50) 	NULL,
+  `eatAtOwnHouse` 	  bool 			NULL,
+  `economicSituation` VARCHAR(80) 	NULL,
+  `celiac` 			  bool NULL default false,
+  `diabetic` 		  bool NULL default false,
+  `document` 		  VARCHAR(13) NULL,
+  PRIMARY KEY (`idAssistant`))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `FoodType`
+-- -----------------------------------------------------
+-- drop table FoodType;
+
+CREATE TABLE IF NOT EXISTS `FoodType` (
+  `idFoodType`  BIGINT(32) 	 	NOT NULL auto_increment,
+  `code` 	    VARCHAR(10) 	NOT NULL UNIQUE,
+  `name`  	    VARCHAR(50) NOT NULL,
+  `description` LONGTEXT 	NOT NULL,
+  `perishable`  bool 		NOT NULL default false,
+  `celiac`      bool 		NOT NULL default false,
+  `diabetic`    bool 		NOT NULL default false,
+  PRIMARY KEY (`idFoodType`))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `InputType`
+-- -----------------------------------------------------
+-- drop table InputType;
+
+CREATE TABLE IF NOT EXISTS `InputType` (
+  `idInputType`  BIGINT(32) 			NOT NULL auto_increment,
+  `code` 	     VARCHAR(10) 		NOT NULL UNIQUE,
+  `name`  	     VARCHAR(50) 	NOT NULL,
+  `description`  LONGTEXT 		NULL,
+  PRIMARY KEY (`idInputType`))
+ENGINE = InnoDB;
+
+SHOW WARNINGS;
+
+
+-- -----------------------------------------------------
 -- Table `Donation`
 -- -----------------------------------------------------
 -- drop table donation;
 
 CREATE TABLE IF NOT EXISTS `Donation` (
+
   `idDonation` 		BIGINT(32) 	NOT NULL AUTO_INCREMENT,
   `idSender` 		BIGINT(32) NOT NULL COMMENT 'Colaborador que realiza un donación',
   `idReciever` 		BIGINT(32) NOT NULL,
@@ -125,32 +188,6 @@ ENGINE = InnoDB;
 
 SHOW WARNINGS;
 
--- -----------------------------------------------------
--- Table `Assistant`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Assistant` (
-  `idAssistant`   	  BIGINT(32) 	NOT NULL AUTO_INCREMENT,
-  `name` 		  	  VARCHAR(50) 	NOT NULL,
-  `surname` 	  	  VARCHAR(50) 	NOT NULL,
-  `bornDate` 	  	  DATE 			NOT NULL,
-  `street` 		  	  VARCHAR(50) 	NULL,
-  `streetNumber`  	  INT 			NULL,
-  `floor` 		  	  VARCHAR(10) 	NULL,
-  `door` 		  	  VARCHAR(20) 	NULL,
-  `zipCode` 	  	  CHAR(5) 		NULL,
--- `state` 		  	  INT 			NOT NULL,
-  `phone` 		  	  VARCHAR(20) 	NULL,
-  `contactName`   	  VARCHAR(50) 	NULL,
-  `scholarship`   	  VARCHAR(50) 	NULL,
-  `eatAtOwnHouse` 	  bool 			NULL,
-  `economicSituation` VARCHAR(80) 	NULL,
-  `celiac` 			  bool NULL default false,
-  `diabetic` 		  bool NULL default false,
-  `document` 		  VARCHAR(13) NULL,
-  PRIMARY KEY (`idAssistant`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `Family`
@@ -207,23 +244,6 @@ ENGINE = InnoDB;
 
 SHOW WARNINGS;
 
--- -----------------------------------------------------
--- Table `FoodType`
--- -----------------------------------------------------
--- drop table FoodType;
-
-CREATE TABLE IF NOT EXISTS `FoodType` (
-  `idFoodType`  BIGINT(32) 	 	NOT NULL auto_increment,
-  `code` 	    VARCHAR(10) 	NOT NULL UNIQUE,
-  `name`  	    VARCHAR(50) NOT NULL,
-  `description` LONGTEXT 	NOT NULL,
-  `perishable`  bool 		NOT NULL default false,
-  `celiac`      bool 		NOT NULL default false,
-  `diabetic`    bool 		NOT NULL default false,
-  PRIMARY KEY (`idFoodType`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `DinerFood`
@@ -351,27 +371,13 @@ CREATE TABLE IF NOT EXISTS `EventPhoto` (
     `idPhoto` BIGINT(32) 		NOT NULL AUTO_INCREMENT,
 	`url` 	  LONGTEXT 	NOT NULL,
     PRIMARY KEY (`idEvent` , `idPhoto`),
-    FOREIGN KEY (idEvent) REFERENCES `event` (idEvent),
-    FOREIGN KEY (idPhoto) REFERENCES photo (idPhoto),
+    FOREIGN KEY (idEvent) REFERENCES event (idEvent),
+    FOREIGN KEY (idPhoto) REFERENCES dinerphoto (idPhoto),
     INDEX `idPhoto_idx` (`idPhoto` ASC)
 )  ENGINE=INNODB;
 
 SHOW WARNINGS;
 
--- -----------------------------------------------------
--- Table `InputType`
--- -----------------------------------------------------
--- drop table InputType;
-
-CREATE TABLE IF NOT EXISTS `InputType` (
-  `idInputType`  BIGINT(32) 			NOT NULL auto_increment,
-  `code` 	     VARCHAR(10) 		NOT NULL UNIQUE,
-  `name`  	     VARCHAR(50) 	NOT NULL,
-  `description`  LONGTEXT 		NULL,
-  PRIMARY KEY (`idInputType`))
-ENGINE = InnoDB;
-
-SHOW WARNINGS;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
