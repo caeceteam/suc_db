@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `Notification` (
   `description` 		LONGTEXT 	NULL,
   `idUser` 			    BIGINT(32) 	NOT NULL,
   PRIMARY KEY (`idNotification`),
-  foreign key (idUser) references user(idUser),
+  foreign key (idUser) references User (idUser),
   INDEX `idUser_idx` (`idUser` ASC))
 ENGINE = InnoDB;
 
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `DinerPhoto` (
   `idPhoto` BIGINT(32) 		NOT NULL AUTO_INCREMENT,
   `url` 	LONGTEXT 	NOT NULL,
   PRIMARY KEY (`idPhoto`, `idDiner`),
-  foreign key (idDiner) references diner (idDiner),
+  foreign key (idDiner) references Diner (idDiner),
   INDEX `idDiner_idx` (`idDiner` ASC))
 ENGINE = InnoDB;
 
@@ -239,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `Event` (
   `description`  LONGTEXT  	  NOT NULL,
   `idDiner` 	 BIGINT(32)  	  NOT NULL,
   PRIMARY KEY (`idEvent`),
-  foreign key (idDiner) references diner (idDiner))
+  foreign key (idDiner) references Diner (idDiner))
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -262,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `DinerFood` (
   `endingDate` 	   DATE 		NULL,
   `expirationDate` DATE	 		NULL,
   PRIMARY KEY (`idDinerFood`),
-  foreign key (idDiner)    references diner    (idDiner),
+  foreign key (idDiner)    references Diner    (idDiner),
   foreign key (idFoodType) references FoodType (idFoodType),  
   INDEX `idFoodType_idx` (`idFoodType` ASC),
   INDEX `idDiner_idx`    (`idDiner` ASC))
@@ -283,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `DinerRequest` (
   `startDate` 		DATE 		NOT NULL ,
   `endDate` 		DATE 		NOT NULL,
   PRIMARY KEY (`idDinerRequest`),
-  foreign key (idDiner) references diner (idDiner),
+  foreign key (idDiner) references Diner (idDiner),
   INDEX `idDiner_idx` (`idDiner` ASC))
 ENGINE = InnoDB;
 
@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `DinerInput` (
   `quantity` 	   INT			NOT NULL,
   `description`    LONGTEXT 	NULL,
   PRIMARY KEY (`idDinerInput`),
-  foreign key (idDiner)     references diner    (idDiner),
+  foreign key (idDiner)     references Diner    (idDiner),
   foreign key (idInputType) references InputType (idInputType),  
   INDEX `idInputType_idx` (`idInputType` ASC),
   INDEX `idDiner_idx` (`idDiner` ASC))
@@ -323,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `DinerRequestStatus` (
     `status`  	 	INT 	 NOT NULL,
     PRIMARY KEY (`idRequest` , `idReceiver`),
     FOREIGN KEY (idRequest)  REFERENCES DinerRequest (idDinerRequest),
-    FOREIGN KEY (idReceiver) REFERENCES user (idUser),
+    FOREIGN KEY (idReceiver) REFERENCES User (idUser),
     INDEX `idDinerRequest_idx` (`idRequest` ASC),
     INDEX `idReciver_idx` (`idReceiver` ASC)
 )  ENGINE=INNODB;
@@ -371,8 +371,8 @@ CREATE TABLE IF NOT EXISTS `EventPhoto` (
     `idPhoto` BIGINT(32) 		NOT NULL AUTO_INCREMENT,
 	`url` 	  LONGTEXT 	NOT NULL,
     PRIMARY KEY (`idEvent` , `idPhoto`),
-    FOREIGN KEY (idEvent) REFERENCES event (idEvent),
-    FOREIGN KEY (idPhoto) REFERENCES dinerphoto (idPhoto),
+    FOREIGN KEY (idEvent) REFERENCES Event (idEvent),
+    FOREIGN KEY (idPhoto) REFERENCES DinerPhoto (idPhoto),
     INDEX `idPhoto_idx` (`idPhoto` ASC)
 )  ENGINE=INNODB;
 
