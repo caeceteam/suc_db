@@ -108,6 +108,8 @@ CREATE TABLE IF NOT EXISTS `Assistant` (
   `celiac` 			  bool NULL default false,
   `diabetic` 		  bool NULL default false,
   `document` 		  VARCHAR(13) NULL,
+`latitude` 		FLOAT 	 	 NULL,
+  `longitude` 		FLOAT 		 NULL,
   PRIMARY KEY (`idAssistant`))
 ENGINE = InnoDB;
 
