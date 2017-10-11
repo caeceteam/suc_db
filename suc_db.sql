@@ -237,6 +237,8 @@ CREATE TABLE IF NOT EXISTS `Event` (
   `zipCode` 	 CHAR(5) 	  NULL,
   `phone` 		 varchar(20)  NULL,
   `date` 		 DATE 		  NOT NULL,
+	`latitude` 		FLOAT 	 	 NULL,
+  `longitude` 		FLOAT 		 NULL,
   `link` 		 longtext     NULL,
   `description`  LONGTEXT  	  NOT NULL,
   `idDiner` 	 BIGINT(32)  	  NOT NULL,
