@@ -164,10 +164,10 @@ CREATE TABLE IF NOT EXISTS `Donation` (
   `creationDate` 		DATE 	 NULL,
   `status` 		INTEGER(3) 	 NOT NULL,
   PRIMARY KEY (`idDonation`),
-  FOREIGN KEY (idSender) 	REFERENCES User  (idUser),
-  FOREIGN KEY (idReciever) 	REFERENCES Diner (idDiner),
-  INDEX `idSender_idx` (`idSender`),
-  INDEX `idReciever_idx` (`idReciever`))   	
+  FOREIGN KEY (idUserSender) 	REFERENCES User  (idUser),
+  FOREIGN KEY (idDinerReceiver) 	REFERENCES Diner (idDiner),
+  INDEX `idUserSender_idx` (`idUserSender`),
+  INDEX `idDinerReceiver_idx` (`idDinerReceiver`))   	
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
