@@ -157,17 +157,17 @@ SHOW WARNINGS;
 CREATE TABLE IF NOT EXISTS `Donation` (
 
   `idDonation` 		BIGINT(32) 	NOT NULL AUTO_INCREMENT,
-  `idSender` 		BIGINT(32) NOT NULL COMMENT 'Colaborador que realiza un donación',
-  `idReciever` 		BIGINT(32) NOT NULL,
+  `idUserSender` 		BIGINT(32) NOT NULL COMMENT 'Colaborador que realiza un donación',
+  `idDinerReceiver` 		BIGINT(32) NOT NULL,
   `title` 			VARCHAR(50) NOT NULL,
   `description` 	LONGTEXT NULL,
-  `startDate` 		DATE 	 NULL,
-  `endDate` 		DATE 	 NULL,
+  `creationDate` 		DATE 	 NULL,
+  `status` 		INTEGER(3) 	 NOT NULL,
   PRIMARY KEY (`idDonation`),
-  FOREIGN KEY (idSender) 	REFERENCES User  (idUser),
-  FOREIGN KEY (idReciever) 	REFERENCES Diner (idDiner),
-  INDEX `idSender_idx` (`idSender`),
-  INDEX `idReciever_idx` (`idReciever`))   	
+  FOREIGN KEY (idUserSender) 	REFERENCES User  (idUser),
+  FOREIGN KEY (idDinerReceiver) 	REFERENCES Diner (idDiner),
+  INDEX `idUserSender_idx` (`idUserSender`),
+  INDEX `idDinerReceiver_idx` (`idDinerReceiver`))   	
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
@@ -178,13 +178,14 @@ SHOW WARNINGS;
 -- drop table donationitem; 
 
 CREATE TABLE IF NOT EXISTS `DonationItem` (
-  `idItem` 		BIGINT(32) 	NOT NULL AUTO_INCREMENT,
+  `idDonationItem` 		BIGINT(32) 	NOT NULL AUTO_INCREMENT,
   `idDonation` 	BIGINT(32) 	NOT NULL,
   `inputType` 	INT 	NULL,
   `foodType` 	INT 	NULL,
   `quantity` 	FLOAT 	NOT NULL,
   `unit` 		CHAR(5) NULL,
-  PRIMARY KEY (`idItem`, `idDonation`),
+	  `description` 		VARCHAR(80)  NOT NULL,
+  PRIMARY KEY (`idDonationItem`, `idDonation`),
   foreign key (idDonation) references Donation (idDonation) )
 ENGINE = InnoDB;
 
@@ -284,8 +285,8 @@ CREATE TABLE IF NOT EXISTS `DinerRequest` (
   `idDiner` 		BIGINT(32) 	NOT NULL,
   `title` 			VARCHAR(50) NOT NULL,
   `description` 	LONGTEXT 	NOT NULL,
-  `startDate` 		DATE 		NOT NULL ,
-  `endDate` 		DATE 		NOT NULL,
+  `creationDate` 		DATE 		NOT NULL ,
+  `status` 		INTEGER(2) 		NOT NULL,
   PRIMARY KEY (`idDinerRequest`),
   foreign key (idDiner) references Diner (idDiner),
   INDEX `idDiner_idx` (`idDiner` ASC))
@@ -321,16 +322,7 @@ SHOW WARNINGS;
 -- -----------------------------------------------------
 -- drop table DinerRequestStatus;
 
-CREATE TABLE IF NOT EXISTS `DinerRequestStatus` (
-    `idRequest` 	BIGINT(32) NOT NULL,
-    `idReceiver` 	BIGINT(32) NOT NULL,
-    `status`  	 	INT 	 NOT NULL,
-    PRIMARY KEY (`idRequest` , `idReceiver`),
-    FOREIGN KEY (idRequest)  REFERENCES DinerRequest (idDinerRequest),
-    FOREIGN KEY (idReceiver) REFERENCES User (idUser),
-    INDEX `idDinerRequest_idx` (`idRequest` ASC),
-    INDEX `idReciver_idx` (`idReceiver` ASC)
-)  ENGINE=INNODB;
+DROP TABLE IF EXISTS `DinerRequestStatus` ENGINE=INNODB;
 
 SHOW WARNINGS;
 
