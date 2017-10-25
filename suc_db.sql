@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `User` (
     `floor` 		VARCHAR(10) NULL,
     `door` 			VARCHAR(20) NULL,
     PRIMARY KEY (`idUser`)
-)  ENGINE=INNODB;
+)  ENGINE=InnoDB;
 
 SHOW WARNINGS;
 
@@ -318,15 +318,6 @@ ENGINE = InnoDB;
 SHOW WARNINGS;
 
 -- -----------------------------------------------------
--- Table `DinerRequestStatus`
--- -----------------------------------------------------
--- drop table DinerRequestStatus;
-
-DROP TABLE IF EXISTS `DinerRequestStatus` ENGINE=INNODB;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
 -- Table `UserDiner`
 -- -----------------------------------------------------
 -- drop table UserDiner;
@@ -338,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `UserDiner` (
     PRIMARY KEY (`idDiner` , `idUser`),
     FOREIGN KEY (idDiner) REFERENCES Diner (idDiner),
     FOREIGN KEY (idUser)  REFERENCES User  (idUser))
-ENGINE=INNODB;
+ENGINE=InnoDB;
 
 SHOW WARNINGS;
 
@@ -370,7 +361,7 @@ CREATE TABLE IF NOT EXISTS `EventPhoto` (
     FOREIGN KEY (idEvent) REFERENCES Event (idEvent),
     FOREIGN KEY (idPhoto) REFERENCES DinerPhoto (idPhoto),
     INDEX `idPhoto_idx` (`idPhoto` ASC)
-)  ENGINE=INNODB;
+)  ENGINE=InnoDB;
 
 SHOW WARNINGS;
 
