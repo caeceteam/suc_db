@@ -359,7 +359,6 @@ CREATE TABLE IF NOT EXISTS `EventPhoto` (
 	`url` 	  LONGTEXT 	NOT NULL,
     PRIMARY KEY (`idEvent` , `idPhoto`),
     FOREIGN KEY (idEvent) REFERENCES Event (idEvent),
-    FOREIGN KEY (idPhoto) REFERENCES DinerPhoto (idPhoto),
     INDEX `idPhoto_idx` (`idPhoto` ASC)
 )  ENGINE=InnoDB;
 
