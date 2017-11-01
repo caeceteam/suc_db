@@ -237,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `Event` (
   `door` 		 varchar(20)  NULL,
   `zipCode` 	 CHAR(5) 	  NULL,
   `phone` 		 varchar(20)  NULL,
-  `date` 		 DATE 		  NOT NULL,
+  `date` 		 DATETIME 		  NOT NULL,
 	`latitude` 		FLOAT 	 	 NULL,
   `longitude` 		FLOAT 		 NULL,
   `link` 		 longtext     NULL,
