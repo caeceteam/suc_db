@@ -358,7 +358,7 @@ CREATE TABLE IF NOT EXISTS `EventPhoto` (
     `idPhoto` BIGINT(32) 		NOT NULL AUTO_INCREMENT,
 	`url` 	  LONGTEXT 	NOT NULL,
     PRIMARY KEY (`idEvent` , `idPhoto`),
-    FOREIGN KEY (idEvent) REFERENCES Event (idEvent),
+    FOREIGN KEY (idEvent) REFERENCES Event (idEvent) ON DELETE CASCADE,
     INDEX `idPhoto_idx` (`idPhoto` ASC)
 )  ENGINE=InnoDB;
 
