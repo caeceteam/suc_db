@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `Donation` (
   `idDinerReceiver` 		BIGINT(32) NOT NULL,
   `title` 			VARCHAR(50) NOT NULL,
   `description` 	LONGTEXT NULL,
-  `creationDate` 		DATE 	 NULL,
+  `creationDate` 		DATETIME 	 NULL,
   `status` 		INTEGER(3) 	 NOT NULL,
   PRIMARY KEY (`idDonation`),
   FOREIGN KEY (idUserSender) 	REFERENCES User  (idUser),
