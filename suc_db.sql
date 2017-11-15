@@ -365,7 +365,8 @@ CREATE TABLE `user` (
   `floor` varchar(10) DEFAULT NULL,
   `door` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`idUser`),
-  UNIQUE KEY `alias` (`alias`)
+  UNIQUE KEY `alias` (`alias`),
+  UNIQUE KEY `mail` (`mail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
