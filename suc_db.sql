@@ -155,7 +155,7 @@ CREATE TABLE `dinerphoto` (
   `url` longtext NOT NULL,
   PRIMARY KEY (`idPhoto`,`idDiner`),
   KEY `idDiner_idx` (`idDiner`),
-  CONSTRAINT `dinerphoto_ibfk_1` FOREIGN KEY (`idDiner`) REFERENCES `diner` (`idDiner`)
+  CONSTRAINT `dinerphoto_ibfk_1` FOREIGN KEY (`idDiner`) REFERENCES `diner` (`idDiner`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
