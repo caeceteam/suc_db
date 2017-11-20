@@ -384,7 +384,7 @@ CREATE TABLE `userdiner` (
   PRIMARY KEY (`idDiner`,`idUser`),
   KEY `idUser` (`idUser`),
   CONSTRAINT `userdiner_ibfk_1` FOREIGN KEY (`idDiner`) REFERENCES `diner` (`idDiner`),
-  CONSTRAINT `userdiner_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`)
+  CONSTRAINT `userdiner_ibfk_2` FOREIGN KEY (`idUser`) REFERENCES `user` (`idUser`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
