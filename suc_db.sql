@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `suc_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `suc_db`;
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
--- Host: 127.0.0.1    Database: suc_db
+-- Host: localhost    Database: suc_db
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.19-MariaDB
+-- Server version	5.6.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -529,6 +529,7 @@ CREATE TABLE `userdiner` (
   `idDiner` bigint(32) NOT NULL,
   `idUser` bigint(32) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
+  `isCollaborator` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idDiner`,`idUser`),
   KEY `idUser` (`idUser`),
   CONSTRAINT `userdiner_ibfk_1` FOREIGN KEY (`idDiner`) REFERENCES `diner` (`idDiner`),
@@ -542,7 +543,7 @@ CREATE TABLE `userdiner` (
 
 LOCK TABLES `userdiner` WRITE;
 /*!40000 ALTER TABLE `userdiner` DISABLE KEYS */;
-INSERT INTO `userdiner` VALUES (1,5,0),(2,6,0),(3,7,0),(4,8,0),(5,9,0),(6,10,0),(7,11,0),(8,12,0),(9,13,0),(10,14,0);
+INSERT INTO `userdiner` VALUES (1,5,0,NULL),(2,6,0,NULL),(3,7,0,NULL),(4,8,0,NULL),(5,9,0,NULL),(6,10,0,NULL),(7,11,0,NULL),(8,12,0,NULL),(9,13,0,NULL),(10,14,0,NULL);
 /*!40000 ALTER TABLE `userdiner` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -555,4 +556,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-21 18:27:53
+-- Dump completed on 2017-11-22 17:51:08
